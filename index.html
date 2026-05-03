@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黄振宇 - 个人简历</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(255,255,255,0.03);
+            --bg-card-hover: rgba(255,255,255,0.06);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-muted: #55556a;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --accent-glow: rgba(108,92,231,0.3);
+            --gradient-1: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #74b9ff 100%);
+            --gradient-2: linear-gradient(135deg, #fd79a8 0%, #6c5ce7 100%);
+            --gradient-3: linear-gradient(135deg, #00cec9 0%, #6c5ce7 100%);
+            --border: rgba(255,255,255,0.06);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--bg-secondary);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* ===== Background Effects ===== */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .bg-glow-1 {
+            top: -200px;
+            right: -100px;
+            background: var(--accent);
+        }
+
+        .bg-glow-2 {
+            bottom: -200px;
+            left: -100px;
+            background: #fd79a8;
+        }
+
+        .bg-glow-3 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #00cec9;
+            opacity: 0.08;
+        }
+
+        /* ===== Cursor Glow ===== */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+
+        body:hover .cursor-glow { opacity: 1; }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(10,10,15,0.7);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            padding: 14px 40px;
+            background: rgba(10,10,15,0.9);
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s;
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 100px 40px 60px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-avatar {
+            width: 320px; margin: 28px auto 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 2px solid var(--border);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        .hero-avatar:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 60px rgba(108,92,231,0.2);
+            border-color: rgba(108,92,231,0.3);
+        }
+        .hero-avatar img {
+            width: 100%; display: block;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00b894;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,184,148,0.4); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(0,184,148,0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 88px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 20px auto 40px;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: #fff;
+            box-shadow: 0 4px 24px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .scroll-indicator .mouse {
+            width: 24px;
+            height: 38px;
+            border: 2px solid var(--text-muted);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-indicator .mouse::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: scroll-dot 2s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-55%) translateY(8px); }
+        }
+
+        @keyframes scroll-dot {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 22px; }
+        }
+
+        /* ===== Section Common ===== */
+        .section {
+            padding: 72px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: var(--gradient-1);
+            border-radius: 1px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.15;
+        }
+
+        .section-title .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== Info Cards (Contact) ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .info-card {
+            padding: 28px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .info-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(108,92,231,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .info-card .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+            background: rgba(108,92,231,0.1);
+        }
+
+        .info-card .label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .info-card .value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 8px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px var(--accent-glow);
+        }
+
+        .timeline-date {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent-light);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-card {
+            padding: 28px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .timeline-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(108,92,231,0.2);
+            transform: translateX(8px);
+        }
+
+        .timeline-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .timeline-card .org {
+            font-size: 14px;
+            color: var(--accent-light);
+            margin-bottom: 12px;
+        }
+
+        .timeline-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .timeline-card p strong {
+            color: var(--accent-light);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+        }
+
+        .timeline-card .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .project-images {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px; margin-top: 20px;
+        }
+        .project-images img {
+            width: 100%; display: block;
+            border-radius: var(--radius-sm); border: 1px solid var(--border);
+            transition: transform 0.3s;
+        }
+        .project-images img { cursor: pointer; }
+        .project-images img:hover { transform: scale(1.02); }
+        .lightbox {
+            position: fixed; inset: 0; z-index: 200;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+            cursor: pointer;
+        }
+        .lightbox.open { opacity: 1; visibility: visible; }
+        .lightbox img {
+            max-width: 90vw; max-height: 90vh; border-radius: var(--radius-sm);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            transform: scale(0.9); transition: transform 0.3s;
+        }
+        .lightbox.open img { transform: scale(1); }
+        .project-images-sm { grid-template-columns: repeat(3, 1fr); }
+
+        .card-toggle {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            width: 100%; background: none; border: none; color: var(--accent-light);
+            font-size: 13px; font-weight: 600; cursor: pointer;
+            padding: 10px 0 0; border-top: 1px solid var(--border); margin-top: 16px;
+            transition: color 0.3s;
+        }
+        .card-toggle:hover { color: #fff; }
+        .card-toggle .arrow { transition: transform 0.3s; display: inline-block; transform: rotate(-90deg); }
+        .card-toggle.expanded .arrow { transform: rotate(0deg); }
+        .card-body {
+            overflow: hidden; transition: max-height 0.4s ease;
+            max-height: 180px;
+        }
+        .card-body.expanded { max-height: 2000px; }
+        .timeline-card h3 { display: block; }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(108,92,231,0.1);
+            color: var(--accent-light);
+            border: 1px solid rgba(108,92,231,0.15);
+        }
+
+        /* ===== Skills Section ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            padding: 32px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .skill-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+        }
+
+        .skill-card:hover::before { opacity: 1; }
+
+        .skill-card .skill-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .skill-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .skill-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ===== Self Evaluation ===== */
+        .eval-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .eval-card {
+            padding: 28px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .eval-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .eval-card .eval-num {
+            font-size: 48px;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .eval-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer .footer-links a:hover { color: var(--accent-light); }
+
+        /* ===== Reveal Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== Divider ===== */
+        .divider {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* ===== Mobile Menu ===== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99;
+            background: rgba(10,10,15,0.95);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-menu-btn { display: block; }
+            .hero { padding: 100px 20px 60px; }
+            .section { padding: 48px 20px; }
+            .hero h1 { letter-spacing: -1px; }
+            .timeline { padding-left: 30px; }
+            .timeline::before { left: 0; }
+            .timeline-item::before { left: -36px; width: 12px; height: 12px; }
+            .project-images { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+    <div class="cursor-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-logo">HZY.</div>
+        <ul class="nav-links">
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#education">教育背景</a></li>
+            <li><a href="#experience">实践经历</a></li>
+            <li><a href="#skills">技能特长</a></li>
+            <li><a href="#evaluation">自我评价</a></li>
+            <li><a href="#contact">联系方式</a></li>
+        </ul>
+        <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMenu()">关于我</a>
+        <a href="#education" onclick="closeMenu()">教育背景</a>
+        <a href="#experience" onclick="closeMenu()">实践经历</a>
+        <a href="#skills" onclick="closeMenu()">技能特长</a>
+        <a href="#evaluation" onclick="closeMenu()">自我评价</a>
+        <a href="#contact" onclick="closeMenu()">联系方式</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="hero-badge reveal">
+                <span class="dot"></span>
+                求职中 - 广州地区
+            </div>
+            <h1 class="reveal reveal-delay-1">
+                你好，我是<br><span class="gradient-text">黄振宇</span>
+            </h1>
+            <div class="hero-avatar reveal reveal-delay-2">
+                <img src="img/avatar.png" alt="黄振宇">
+            </div>
+            <p class="hero-subtitle reveal reveal-delay-2">
+                广州大学经济与统计学院数字经济专业在读，拥有丰富的创业实践与自媒体运营经验，善于将宏观目标分解为可执行的步骤，追求从0到1的创造过程。
+            </p>
+            <div class="hero-cta reveal reveal-delay-3">
+                <a href="#experience" class="btn btn-primary">查看经历 &darr;</a>
+                <a href="#contact" class="btn btn-outline">联系我</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <span>向下滚动</span>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <div class="divider"></div>
+    <section class="section" id="education">
+        <div class="section-header reveal">
+            <div class="section-label">Education</div>
+            <h2 class="section-title">教育<span class="gradient-text">背景</span></h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2025年9月 - 至今</div>
+                <div class="timeline-card">
+                    <h3>广州大学</h3>
+                    <div class="card-body expanded">
+                        <div class="org">经济与统计学院 &middot; 数字经济本科</div>
+                        <p>主修高等数学、会计学、政治经济学等核心课程，系统学习数字经济领域的理论知识与实践方法。</p>
+                        <div class="tag-list">
+                            <span class="tag">高等数学</span>
+                            <span class="tag">会计学</span>
+                            <span class="tag">政治经济学</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Practice -->
+    <div class="divider"></div>
+    <section class="section" id="experience">
+        <div class="section-header reveal">
+            <div class="section-label">Experience</div>
+            <h2 class="section-title">社会<span class="gradient-text">实践</span></h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2026年3月 - 至今</div>
+                <div class="timeline-card">
+                    <h3>"大学村"生态：大学英语四六级网站（教育资源整合） &middot; 创始人 &amp; 首席开发</h3>
+                    <div class="card-body">
+                        <p><strong>AI+教育场景落地：</strong>针对大学生四六级备考痛点，开发集成"真题库+AI 导师"的数字化平台。上线"AI 深度解析"功能，通过自然语言处理技术提供作文批改、语法诊断及语境模拟，提升学习效率 40% 以上。</p>
+                        <p class="desc"><strong>O2O 商业闭环设计：</strong>成功跑通"线上学习-线下服务"的商业模型。在平台内深度整合线下打印配送服务（覆盖广州大学等校区），通过流量引流实现变现，验证了工具类产品的商业可持续性。</p>
+                        <p class="desc"><strong>用户增长与数据运营：</strong>独立负责产品迭代与运营，通过倒计时、错题驱动等心理学设计（结合教育心理学背景）增强用户粘性。系统支持动态考试提醒与备考进度监控，构建了完整的数字化备考闭环。</p>
+                        <p class="desc"><strong>技术栈：</strong>前端采用 Vue 3 响应式框架，后端基于 Python Flask 构建微服务接口，AI 模块采用 API 中转与本地 Prompt 调优相结合的方式。</p>
+                        <div class="tag-list">
+                            <span class="tag">Vue 3</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">NLP</span>
+                            <span class="tag">O2O</span>
+                            <span class="tag">AI+教育</span>
+                        </div>
+                        <div class="project-images">
+                            <img src="img/cet1.png" alt="四六级备考平台首页" onclick="openLightbox(this)">
+                            <img src="img/cet2.png" alt="四级高频词汇页面" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+                    <button class="card-toggle" onclick="toggleCard(this)"><span class="arrow">&#9660;</span> 展开</button>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025.10 - 至今</div>
+                <div class="timeline-card">
+                    <h3>"大学村"校园生活服务平台 &middot; 创始人 / 项目负责人</h3>
+                    <div class="card-body">
+                        <p><strong>产品设计与迭代：</strong>深度调研高校用户痛点，设计并上线集"代取配送、校园集市、心理社交"于一体的综合 App（UniVille 2.0）。通过功能模块化设计，满足学生群体高频、低客单价的服务需求。</p>
+                        <p class="desc"><strong>商业模式闭环：</strong>构建"私域流量引流+平台化服务承接"的商业模型。成功将分散的电商业务接入统一平台，实现业务流、信息流、现金流的三流合一。</p>
+                        <p class="desc"><strong>运营合规与标准化：</strong>建立基于实名认证的校园风控体系。负责从银行开户到税务申报的财务合规管理，确保平台在受监管环境下稳健运行。</p>
+                        <p class="desc"><strong>市场表现：</strong>上线首月覆盖广州大学全校区，2.0版本上线三日用户数突破 1K+。</p>
+                        <div class="tag-list">
+                            <span class="tag">产品设计</span>
+                            <span class="tag">商业模式</span>
+                            <span class="tag">运营合规</span>
+                            <span class="tag">校园平台</span>
+                        </div>
+                        <div class="project-images">
+                            <img src="img/daxuecun1.png" alt="大学村App首页" onclick="openLightbox(this)">
+                            <img src="img/daxuecun2.png" alt="大学村功能页面" onclick="openLightbox(this)">
+                            <img src="img/daxuecun3.png" alt="大学村服务页面" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+                    <button class="card-toggle" onclick="toggleCard(this)"><span class="arrow">&#9660;</span> 展开</button>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025.08 - 2025.10</div>
+                <div class="timeline-card">
+                    <h3>电商商业模型验证与知识产品化（独立项目）</h3>
+                    <div class="card-body">
+                        <p><strong>轻量化商业实验：</strong>跑通"闲鱼无货源"轻资产电商模式。通过大数据选品与流量算法优化，在 10 天内实现利润破千，完成 MVP（最小可行性产品）模型验证。</p>
+                        <p class="desc"><strong>方法论沉淀与输出：</strong>将实操经验转化为标准化课程体系，负责课程大纲编写及流量转化路径设计。</p>
+                        <p class="desc"><strong>规模化增长：</strong>成功举办线上实战训练营，首日招募即达满员。实现从"单一业务执行"到"标准方法论赋能"的商业升级，验证了知识付费赛道的可扩展性。</p>
+                        <div class="tag-list">
+                            <span class="tag">电商运营</span>
+                            <span class="tag">知识付费</span>
+                            <span class="tag">MVP验证</span>
+                        </div>
+                        <div class="project-images project-images-sm">
+                            <img src="img/xianyu1.jpg" alt="闲鱼店铺" onclick="openLightbox(this)">
+                            <img src="img/xianyu2.jpg" alt="闲鱼运营" onclick="openLightbox(this)">
+                            <img src="img/xianyu3.jpg" alt="闲鱼数据" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+                    <button class="card-toggle" onclick="toggleCard(this)"><span class="arrow">&#9660;</span> 展开</button>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2020 - 2022</div>
+                <div class="timeline-card">
+                    <h3>数字化营销与商业模型探索 &middot; 独立项目负责人</h3>
+                    <div class="card-body">
+                        <p><strong>内容策略与流量增长：</strong>独立运营个人自媒体矩阵（抖音），通过对算法逻辑的深度拆解与用户画像分析，实现粉丝增长从 0 到 10,000+ 的突破。主导创作多款爆款内容，单视频最高播放量达 1,000,000+，建立了成熟的短视频内容生产与分发方法论。</p>
+                        <p class="desc"><strong>数字化平台构建：</strong>独立完成虚拟商品交易平台的系统架构与业务流设计，实现自动化成交与交付闭环。</p>
+                        <p class="desc"><strong>商业化变现：</strong>通过私域流量承接与转化策略优化，半年内实现副业变现 2w+。全面负责从技术搭建、流量导入、产品选品到售后支持的全生命周期管理，验证了"流量+系统+变现"的盈利模型。</p>
+                        <div class="tag-list">
+                            <span class="tag">内容策略</span>
+                            <span class="tag">平台搭建</span>
+                            <span class="tag">商业化变现</span>
+                        </div>
+                        <div class="project-images project-images-sm">
+                            <img src="img/douyin1.jpg" alt="抖音账号" onclick="openLightbox(this)">
+                            <img src="img/douyin2.jpg" alt="抖音数据" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+                    <button class="card-toggle" onclick="toggleCard(this)"><span class="arrow">&#9660;</span> 展开</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <div class="divider"></div>
+    <section class="section" id="skills">
+        <div class="section-header reveal">
+            <div class="section-label">Skills</div>
+            <h2 class="section-title">技能<span class="gradient-text">特长</span></h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <div class="skill-icon">&#128640;</div>
+                <h3>商业操盘</h3>
+                <p>熟悉互联网项目从0到1的全流程，包括市场调研、商业模式设计、流量获取、变现转化。</p>
+            </div>
+            <div class="skill-card reveal reveal-delay-1">
+                <div class="skill-icon">&#9878;</div>
+                <h3>企业合规</h3>
+                <p>了解小微企业工商、税务、银行对公账户等基础运营规范，具备独立完成企业注册全流程的能力。</p>
+            </div>
+            <div class="skill-card reveal reveal-delay-2">
+                <div class="skill-icon">&#127912;</div>
+                <h3>内容创作</h3>
+                <p>熟练使用 Photoshop、Premiere Pro、剪映等工具进行内容策划与制作，拥有百万级播放视频经验。</p>
+            </div>
+            <div class="skill-card reveal reveal-delay-3">
+                <div class="skill-icon">&#128101;</div>
+                <h3>通用能力</h3>
+                <p>领导力、团队激励、快速学习、抗压能力、复盘反思。善于带领团队高效推进项目，对成果负责。</p>
+            </div>
+        </div>
+        <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;" class="reveal">
+            <span class="tag" style="font-size:14px; padding:8px 18px;">英语 CET-4</span>
+            <span class="tag" style="font-size:14px; padding:8px 18px;">Photoshop</span>
+            <span class="tag" style="font-size:14px; padding:8px 18px;">Premiere Pro</span>
+            <span class="tag" style="font-size:14px; padding:8px 18px;">剪映</span>
+            <span class="tag" style="font-size:14px; padding:8px 18px;">商业计划书</span>
+            <span class="tag" style="font-size:14px; padding:8px 18px;">市场调研</span>
+        </div>
+    </section>
+
+    <!-- Self Evaluation -->
+    <div class="divider"></div>
+    <section class="section" id="evaluation">
+        <div class="section-header reveal">
+            <div class="section-label">About Me</div>
+            <h2 class="section-title">自我<span class="gradient-text">评价</span></h2>
+        </div>
+        <div class="eval-grid">
+            <div class="eval-card reveal">
+                <div class="eval-num">01</div>
+                <p>善于将宏观目标分解为可执行的步骤，并带领团队高效推进，对项目成果负责。</p>
+            </div>
+            <div class="eval-card reveal reveal-delay-1">
+                <div class="eval-num">02</div>
+                <p>对市场趋势和用户需求有敏锐的直觉，敢于在不确定性中做出决策并主动开拓新局面。</p>
+            </div>
+            <div class="eval-card reveal reveal-delay-2">
+                <div class="eval-num">03</div>
+                <p>拥有快速学习新知识的能力和强烈的创新意识，乐于接受挑战，享受从0到1的创造过程。</p>
+            </div>
+            <div class="eval-card reveal reveal-delay-3">
+                <div class="eval-num">04</div>
+                <p>具备良好的抗压心态和强烈的责任感，在压力下能保持冷静，是团队中值得信赖的伙伴。</p>
+            </div>
+            <div class="eval-card reveal reveal-delay-4">
+                <div class="eval-num">05</div>
+                <p>习惯于定期复盘反思，能坦诚面对不足并将其视为成长的机会，持续优化自我和项目。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <div class="divider"></div>
+    <section class="section" id="contact">
+        <div class="section-header reveal">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">联系<span class="gradient-text">方式</span></h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-card reveal">
+                <div class="icon">&#128222;</div>
+                <div class="label">电话</div>
+                <div class="value">156-2632-4118</div>
+            </div>
+            <div class="info-card reveal reveal-delay-1">
+                <div class="icon">&#9993;</div>
+                <div class="label">邮箱</div>
+                <div class="value">472071312@qq.com</div>
+            </div>
+            <div class="info-card reveal reveal-delay-2">
+                <div class="icon">&#128205;</div>
+                <div class="label">现居地</div>
+                <div class="value">广州市</div>
+            </div>
+            <div class="info-card reveal reveal-delay-3">
+                <div class="icon">&#127891;</div>
+                <div class="label">政治面貌</div>
+                <div class="value">共青团员</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 黄振宇 &middot; 个人简历网站</p>
+        <div class="footer-links">
+            <a href="#about">回到顶部</a>
+            <a href="mailto:472071312@qq.com">发送邮件</a>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        // ===== Cursor Glow =====
+        const cursorGlow = document.querySelector('.cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // ===== Nav Scroll =====
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== Mobile Menu =====
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+        }
+
+        // ===== Card Toggle =====
+        // ===== Lightbox =====
+        function openLightbox(img) {
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        // ===== Card Toggle =====
+        function toggleCard(btn) {
+            const body = btn.closest('.timeline-card').querySelector('.card-body');
+            const isExpanded = body.classList.toggle('expanded');
+            btn.classList.toggle('expanded', isExpanded);
+            btn.innerHTML = isExpanded
+                ? '<span class="arrow">&#9660;</span> 收起'
+                : '<span class="arrow">&#9660;</span> 展开';
+        }
+
+        // ===== Reveal on Scroll =====
+        const revealElements = document.querySelectorAll('.reveal, .timeline-item');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== Parallax Background Glows =====
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            document.querySelector('.bg-glow-1').style.transform = `translate(${x}px, ${y}px)`;
+            document.querySelector('.bg-glow-2').style.transform = `translate(${-x}px, ${-y}px)`;
+        });
+
+        // ===== Smooth anchor scroll =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
