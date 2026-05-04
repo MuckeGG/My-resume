@@ -428,6 +428,46 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.3);
         }
 
+        /* ===== Profile Info Boxes ===== */
+        .profile-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto 0;
+        }
+        .profile-info-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 12px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .profile-info-box:hover {
+            border-color: rgba(108,92,231,0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .profile-info-box .info-label {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .profile-info-box .info-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        @media (max-width: 600px) {
+            .profile-info-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         .info-card .icon {
             width: 44px;
             height: 44px;
@@ -748,6 +788,28 @@
         .reveal-delay-3 { transition-delay: 0.3s; }
         .reveal-delay-4 { transition-delay: 0.4s; }
 
+        /* ===== Typing Effect ===== */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background: var(--accent);
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink-cursor 0.8s step-end infinite;
+        }
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ===== Counter Animation ===== */
+        .counter {
+            display: inline-block;
+            font-weight: 700;
+            color: var(--hl);
+        }
+
         /* ===== Divider ===== */
         .divider {
             width: 100%;
@@ -834,8 +896,8 @@
                 <span class="dot"></span>
                 求职中 - 广州地区
             </div>
-            <h1 class="reveal reveal-delay-1">
-                你好，我是<br><span class="gradient-text">黄振宇</span>
+            <h1 class="reveal reveal-delay-1" id="typingTitle">
+                <span id="typingText"></span><span class="typing-cursor" id="typingCursor"></span>
             </h1>
             <div class="hero-avatar reveal reveal-delay-2">
                 <img src="img/avatar.jpg" alt="黄振宇">
@@ -857,6 +919,24 @@
     <!-- Education -->
     <div class="divider"></div>
     <section class="section" id="education">
+        <div class="profile-info-grid reveal">
+            <div class="profile-info-box">
+                <span class="info-label">性别</span>
+                <span class="info-value">男</span>
+            </div>
+            <div class="profile-info-box">
+                <span class="info-label">年龄</span>
+                <span class="info-value">19</span>
+            </div>
+            <div class="profile-info-box">
+                <span class="info-label">政治面貌</span>
+                <span class="info-value">共青团员</span>
+            </div>
+            <div class="profile-info-box">
+                <span class="info-label">院校</span>
+                <span class="info-value">广州大学</span>
+            </div>
+        </div>
         <div class="section-header reveal">
             <div class="section-label">Education</div>
             <h2 class="section-title">教育<span class="gradient-text">背景</span></h2>
@@ -893,7 +973,7 @@
                 <div class="timeline-card">
                     <h3>"大学村"生态：大学英语四六级网站（教育资源整合） &middot; 创始人 &amp; 首席开发</h3>
                     <div class="card-body">
-                        <p><strong>AI+教育场景落地：</strong>针对大学生四六级备考痛点，开发集成"真题库+AI 导师"的数字化平台。上线"AI 深度解析"功能，通过自然语言处理技术提供作文批改、语法诊断及语境模拟，提升学习效率 40% 以上。</p>
+                        <p><strong>AI+教育场景落地：</strong>针对大学生四六级备考痛点，开发集成"真题库+AI 导师"的数字化平台。上线"AI 深度解析"功能，通过自然语言处理技术提供作文批改、语法诊断及语境模拟，提升学习效率 <span class="counter" data-target="40" data-suffix="%">0%</span> 以上。</p>
                         <p class="desc"><strong>O2O 商业闭环设计：</strong>成功跑通"线上学习-线下服务"的商业模型。在平台内深度整合线下打印配送服务（覆盖广州大学等校区），通过流量引流实现变现，验证了工具类产品的商业可持续性。</p>
                         <p class="desc"><strong>用户增长与数据运营：</strong>独立负责产品迭代与运营，通过倒计时、错题驱动等心理学设计（结合教育心理学背景）增强用户粘性。系统支持动态考试提醒与备考进度监控，构建了完整的数字化备考闭环。</p>
                         <p class="desc"><strong>技术栈：</strong>前端采用 React 19 框架，使用 Vite 构建工具，样式方案采用 Tailwind CSS，路由基于 React Router，PDF 渲染基于 react-pdf + pdfjs-dist。</p>
@@ -963,9 +1043,9 @@
                 <div class="timeline-card">
                     <h3>数字化营销与商业模型探索 &middot; 独立项目负责人</h3>
                     <div class="card-body">
-                        <p><strong>内容策略与流量增长：</strong>独立运营个人自媒体矩阵（抖音），通过对算法逻辑的深度拆解与用户画像分析，实现粉丝增长从 0 到 10,000+ 的突破。主导创作多款爆款内容，单视频最高播放量达 1,000,000+，建立了成熟的短视频内容生产与分发方法论。</p>
+                        <p><strong>内容策略与流量增长：</strong>独立运营个人自媒体矩阵（抖音），通过对算法逻辑的深度拆解与用户画像分析，实现粉丝增长从 0 到 <span class="counter" data-target="10000" data-suffix="+">0+</span> 的突破。主导创作多款爆款内容，单视频最高播放量达 <span class="counter" data-target="1000000" data-suffix="+">0+</span>，建立了成熟的短视频内容生产与分发方法论。</p>
                         <p class="desc"><strong>数字化平台构建：</strong>独立完成虚拟商品交易平台的系统架构与业务流设计，实现自动化成交与交付闭环。</p>
-                        <p class="desc"><strong>商业化变现：</strong>通过私域流量承接与转化策略优化，半年内实现副业变现 2w+。全面负责从技术搭建、流量导入、产品选品到售后支持的全生命周期管理，验证了"流量+系统+变现"的盈利模型。</p>
+                        <p class="desc"><strong>商业化变现：</strong>通过私域流量承接与转化策略优化，半年内实现副业变现 <span class="counter" data-target="2" data-suffix="w+">0w+</span>。全面负责从技术搭建、流量导入、产品选品到售后支持的全生命周期管理，验证了"流量+系统+变现"的盈利模型。</p>
                         <div class="tag-list">
                             <span class="tag">内容策略</span>
                             <span class="tag">平台搭建</span>
@@ -1173,6 +1253,95 @@
                 }
             });
         });
+
+        // ===== Typing Animation =====
+        (function() {
+            const lines = ['你好，我是', '黄振宇'];
+            const textEl = document.getElementById('typingText');
+            const cursorEl = document.getElementById('typingCursor');
+            let lineIdx = 0, charIdx = 0;
+
+            function type() {
+                if (lineIdx >= lines.length) {
+                    cursorEl.style.display = 'none';
+                    return;
+                }
+                const currentLine = lines[lineIdx];
+                if (charIdx < currentLine.length) {
+                    textEl.innerHTML += currentLine[charIdx];
+                    charIdx++;
+                    setTimeout(type, 100 + Math.random() * 60);
+                } else {
+                    if (lineIdx < lines.length - 1) {
+                        textEl.innerHTML += '<br>';
+                        lineIdx++;
+                        charIdx = 0;
+                        setTimeout(type, 400);
+                    } else {
+                        // Add gradient class to last line
+                        const parts = textEl.innerHTML.split('<br>');
+                        parts[parts.length - 1] = '<span class="gradient-text">' + parts[parts.length - 1] + '</span>';
+                        textEl.innerHTML = parts.join('<br>');
+                        cursorEl.style.display = 'none';
+                    }
+                }
+            }
+
+            // Start typing when hero is visible
+            const heroObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    setTimeout(type, 600);
+                    heroObserver.disconnect();
+                }
+            }, { threshold: 0.3 });
+            heroObserver.observe(document.getElementById('typingTitle'));
+        })();
+
+        // ===== Number Counter Animation =====
+        (function() {
+            const counters = document.querySelectorAll('.counter');
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.dataset.animated) {
+                        entry.target.dataset.animated = 'true';
+                        animateCounter(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(el => counterObserver.observe(el));
+
+            function animateCounter(el) {
+                const target = parseInt(el.dataset.target);
+                const suffix = el.dataset.suffix || '';
+                const duration = 1500;
+                const start = performance.now();
+
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                    const current = Math.floor(eased * target);
+
+                    if (target >= 10000) {
+                        el.textContent = current.toLocaleString() + suffix;
+                    } else {
+                        el.textContent = current + suffix;
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        if (target >= 10000) {
+                            el.textContent = target.toLocaleString() + suffix;
+                        } else {
+                            el.textContent = target + suffix;
+                        }
+                    }
+                }
+                requestAnimationFrame(update);
+            }
+        })();
     </script>
 </body>
 </html>
